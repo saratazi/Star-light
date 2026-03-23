@@ -10,6 +10,13 @@ This project uses Python to process and visualize astronomical data stored in **
 * **Logarithmic Scaling:** Using `simple_norm` to reveal dim nebulae without washing out bright stars.
 * **Visualization:** Custom colormaps (Magma/Viridis) for better scientific analysis.
 * **Remote Data Fetching:** Automatically pulls real NASA sample data for testing.
+📚 Libraries Used
+
+Astropy - Core astronomy library.
+
+Photutils - Tool for star detection (photometry).
+
+Matplotlib - For generating scientific plots.
 
 ## 🛠️ Installation & Setup
 
