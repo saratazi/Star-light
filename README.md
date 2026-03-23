@@ -12,9 +12,10 @@ This project uses Python to process and visualize astronomical data stored in **
 * **Remote Data Fetching:** Automatically pulls real NASA sample data for testing.
 
 ## 🛠️ Installation & Setup
+
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/YOUR_USERNAME/star-light-project.git](https://github.com/YOUR_USERNAME/star-light-project.git)
-   cd star-light-project
-link
+   git clone https://github.com/saratazi/Star-light.git
+   cd Star-light
+Project link
    https://github.com/saratazi/Star-light
