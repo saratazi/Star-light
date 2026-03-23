@@ -1,22 +1,36 @@
+import streamlit as st
 import matplotlib.pyplot as plt
 from astropy.io import fits
-from astropy.utils.data import download_file
 from astropy.visualization import simple_norm
+from photutils.detection import DAOStarFinder
+from astropy.stats import sigma_clipped_stats
+import pandas as pd
 
-# 1. DOWNLOAD a real NASA image (The Horsehead Nebula)
-image_url = 'http://data.astropy.org/tutorials/FITS-images/HorseHead.fits'
-sample_file = download_file(image_url, cache=True)
+st.set_page_config(page_title="AstroStar Finder", page_icon="🔭")
+st.title("🌌 Stellar Source Finder")
 
-# 2. OPEN the downloaded file
-hdul = fits.open(sample_file)
-image_data = hdul[0].data
+uploaded_file = st.file_uploader("Choose a FITS file...", type=["fits", "fit"])
 
-# 3. SET UP the view (Log scale so it looks pretty)
-norm = simple_norm(image_data, 'log', percent=99.5)
+if uploaded_file is not None:
+    with fits.open(uploaded_file) as hdul:
+        data = hdul[0].data
+    
+    st.sidebar.header("Settings")
+    threshold = st.sidebar.slider("Sensitivity", 1.0, 10.0, 3.0)
+    
+    mean, median, std = sigma_clipped_stats(data, sigma=3.0)
+    daofind = DAOStarFinder(fwhm=3.0, threshold=threshold * std)
+    sources = daofind(data - median)
 
-# 4. SHOW IT
-plt.figure(figsize=(10, 8))
-plt.imshow(image_data, cmap='magma', origin='lower', norm=norm)
-plt.colorbar(label='Light Intensity')
-plt.title('The Horsehead Nebula (FITS Data)')
-plt.show()
+    fig, ax = plt.subplots()
+    norm = simple_norm(data, 'log', percent=99.0)
+    ax.imshow(data, cmap='magma', origin='lower', norm=norm)
+    
+    if sources:
+        st.metric("Stars Found", len(sources))
+        ax.scatter(sources['xcentroid'], sources['ycentroid'], s=10, edgecolor='cyan', facecolor='none')
+        st.dataframe(sources.to_pandas().head(50))
+    
+    st.pyplot(fig)
+else:
+    st.info("Upload a .fits file to see the magic!")
