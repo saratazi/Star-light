@@ -16,3 +16,5 @@ This project uses Python to process and visualize astronomical data stored in **
    ```bash
    git clone [https://github.com/YOUR_USERNAME/star-light-project.git](https://github.com/YOUR_USERNAME/star-light-project.git)
    cd star-light-project
+link
+   https://github.com/saratazi/Star-light
