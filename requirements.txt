@@ -4,3 +4,5 @@ astropy
 photutils
 streamlit
 pandas
+requests
+astroquery
