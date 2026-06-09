@@ -13,7 +13,7 @@ st.title("🌌 Space Explorer")
 # =========================
 st.header("🚀 NASA Image of the Day")
 
-API_KEY = "DEMO_KEY"  # مؤقتاً بلا secrets باش ما تعقديش
+API_KEY = "DEMO_KEY"  
 
 url = "https://api.nasa.gov/planetary/apod"
 params = {"api_key": API_KEY}
